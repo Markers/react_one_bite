@@ -2,9 +2,17 @@ import "./DiaryItem.css";
 import { getEmotionImage } from "../util/get-emotion-image";
 import Button from "./Button";
 import { useNavigate } from "react-router-dom";
+import { useContext } from "react";
+import { DiaryDispatchContext } from "../App";
 
 const DiaryItem = ({ id, emotionId, createdDate, content }) => {
   const nav = useNavigate();
+  const { onDelete } = useContext(DiaryDispatchContext);
+
+  const onDeleteClickButton = () => {
+    onDelete(id);
+  };
+
   return (
     <div className="DiaryItem">
       <div
@@ -32,6 +40,11 @@ const DiaryItem = ({ id, emotionId, createdDate, content }) => {
             nav(`/edit/${id}`);
           }}
           text={"수정하기"}
+        />
+        <Button
+          text={"삭제하기"}
+          onClick={onDeleteClickButton}
+          type={"NEGATIVE"}
         />
       </div>
     </div>
